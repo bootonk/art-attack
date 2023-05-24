@@ -8,19 +8,19 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-const fetchWeather = function (callback) {
+const fetchWeather = function () {
   const api_key = process.env.WEATHER_API;
   const weather_url = `http://api.weatherapi.com/v1/current.json?key=${api_key}&q=V9A5C4&aqi=no`;
 
-  axios.get(weather_url).then((response) => {
-    return console.log(response);
+  return axios.get(weather_url).then((response) => {
+    return response.data.current.temp_c;
   });
 };
 
-fetchWeather();
-
 app.get("/", (req, res) => {
-  res.render("weather");
+  fetchWeather().then((response) => {
+    res.render("weather", { degrees: response });
+  });
 });
 
 app.listen(PORT, () => {
