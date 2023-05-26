@@ -19,8 +19,12 @@ const fetchWeather = function () {
 };
 
 app.get("/", (req, res) => {
+  res.render("weather");
+});
+
+app.get("/weather", (req, res) => {
   fetchWeather().then((response) => {
-    res.render("weather", { degrees: response });
+    res.json({ degrees: response });
   });
 });
 
