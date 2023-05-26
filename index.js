@@ -7,6 +7,7 @@ const PORT = 8080;
 const app = express();
 
 app.set("view engine", "ejs");
+app.use(express.static("public"));
 
 const fetchWeather = function () {
   const api_key = process.env.WEATHER_API;
